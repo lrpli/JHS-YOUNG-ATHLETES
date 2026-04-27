@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JHS Young Athletes — Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #1a3a6b;
+      --color-secondary: #e8a020;
+      --color-accent: #e84040;
+      --color-bg: #f7f9fc;
+      --color-bg-alt: #eef2f8;
+      --color-text: #1c2a3a;
+      --color-text-light: #5a6a7e;
+      --color-top-bar: #0f2248;
+      --color-top-bar-text: #c8d8f0;
+      --color-nav: #1a3a6b;
+      --color-nav-text: #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; color: var(--color-text); background: var(--color-bg); }
+
+    /* TOP BAR */
+    .top-bar {
+      background: var(--color-top-bar);
+      color: var(--color-top-bar-text);
+      font-size: 0.82rem;
+      padding: 7px 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      letter-spacing: 0.02em;
+    }
+    .top-bar a { color: var(--color-secondary); text-decoration: none; }
+    .top-bar a:hover { text-decoration: underline; }
+    .top-bar span { display: flex; align-items: center; gap: 6px; }
+
+    /* NAV */
+    nav {
+      background: var(--color-nav);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo .logo-icon {
+      width: 38px; height: 38px;
+      background: var(--color-secondary);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: var(--color-secondary);
+      color: #fff;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .hamburger span { display: block; width: 26px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none; flex-direction: column;
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: var(--color-nav);
+        padding: 1rem;
+        gap: 0.25rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      }
+      .nav-links.open { display: flex; }
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #0f2248 0%, #1a3a6b 50%, #1e5799 100%);
+      color: #fff;
+      padding: 100px 1.5rem 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--color-secondary);
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .hero h1 span { color: var(--color-secondary); }
+    .hero p {
+      font-size: 1.15rem;
+      max-width: 580px;
+      margin: 0 auto 2rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--color-secondary);
+      color: #fff;
+      padding: 14px 36px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .btn:hover { background: #cf8c10; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.6);
+      color: #fff;
+      margin-left: 12px;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+    /* STATS */
+    .stats {
+      background: var(--color-secondary);
+      padding: 3rem 1.5rem;
+    }
+    .stats-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+    .stat-item { color: #fff; }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.88rem; font-weight: 600; opacity: 0.92; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+    @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* SECTION */
+    .section { padding: 72px 1.5rem; }
+    .section-alt { background: var(--color-bg-alt); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .section-desc { font-size: 1rem; color: var(--color-text-light); max-width: 560px; line-height: 1.7; margin-bottom: 2.5rem; }
+
+    /* PROGRAM CARDS */
+    .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    @media (max-width: 900px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .cards-grid { grid-template-columns: 1fr; } }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(26,58,107,0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 10px 32px rgba(26,58,107,0.14); }
+    .card-img {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .card-body { padding: 1.25rem 1.4rem 1.5rem; }
+    .card-body h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .card-body p { font-size: 0.92rem; color: var(--color-text-light); line-height: 1.65; }
+
+    /* MISSION STRIP */
+    .mission-strip {
+      background: var(--color-primary);
+      color: #fff;
+      padding: 64px 1.5rem;
+      text-align: center;
+    }
+    .mission-strip blockquote {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.3;
+      letter-spacing: 0.01em;
+    }
+    .mission-strip blockquote span { color: var(--color-secondary); }
+
+    /* FOOTER */
+    footer {
+      background: #0a1a35;
+      color: rgba(255,255,255,0.7);
+      padding: 48px 1.5rem 24px;
+    }
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+    .footer-brand h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+    }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.6; max-width: 280px; }
+    .footer-col h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-secondary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .footer-col ul a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--color-secondary); }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .social-links { display: flex; gap: 10px; }
+    .social-links a {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: background 0.2s;
+    }
+    .social-links a:hover { background: var(--color-secondary); }
+
+    /* FADE IN */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <span>📍 132 Community Ln, Eolia, MO 63344</span>
+    <span>
+      <span>✉ <a href="mailto:info@jhsyoungathletes.us">info@jhsyoungathletes.us</a></span>
+      &nbsp;|&nbsp;
+      <span>🌐 <a href="https://jhsyoungathletes.us" target="_blank">jhsyoungathletes.us</a></span>
+    </span>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">🏅</span>
+        JHS Young Athletes
+      </a>
+      <button class="hamburger" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="mission.html">Mission</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Eolia, Missouri</div>
+    <h1>Building <span>Champions</span><br>On &amp; Off the Field</h1>
+    <p>JHS Young Athletes empowers the youth of Pike County through competitive sports, teamwork, and character development — giving every kid the chance to play, grow, and thrive.</p>
+    <a href="programs.html" class="btn">Explore Our Programs</a>
+    <a href="contact.html" class="btn btn-outline">Get Involved</a>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stats-grid">
+      <div class="stat-item"><div class="stat-num">200+</div><div class="stat-label">Young Athletes</div></div>
+      <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Sports Programs</div></div>
+      <div class="stat-item"><div class="stat-num">30+</div><div class="stat-label">Coaches &amp; Volunteers</div></div>
+      <div class="stat-item"><div class="stat-num">15+</div><div class="stat-label">Years of Service</div></div>
+    </div>
+  </div>
+
+  <!-- PROGRAMS PREVIEW -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Programs Built for Every Athlete</h2>
+      <p class="section-desc">From first-time players to competitive athletes, our programs meet kids where they are and challenge them to reach new heights.</p>
+      <div class="cards-grid">
+        <div class="card fade-in">
+          <div class="card-img" style="background:#dff0ff;">🏀</div>
+          <div class="card-body">
+            <h3>Basketball</h3>
+            <p>Skill-building clinics and league play for grades 3–12. Focused on fundamentals, teamwork, and game-day confidence.</p>
+          </div>
+        </div>
+        <div class="card fade-in">
+          <div class="card-img" style="background:#fff4df;">⚽</div>
+          <div class="card-body">
+            <h3>Soccer</h3>
+            <p>Recreational and competitive soccer for all skill levels. Spring and fall seasons with certified youth coaches.</p>
+          </div>
+        </div>
+        <div class="card fade-in">
+          <div class="card-img" style="background:#fde8e8;">🏃</div>
+          <div class="card-body">
+            <h3>Track &amp; Field</h3>
+            <p>Speed, strength, and discipline. Our track program develops well-rounded athletes and builds lasting mental toughness.</p>
+          </div>
+        </div>
+        <div class="card fade-in">
+          <div class="card-img" style="background:#e8f5e9;">⚾</div>
+          <div class="card-body">
+            <h3>Baseball &amp; Softball</h3>
+            <p>America's pastime brought to Pike County kids. Co-ed and gender-specific leagues from tee-ball through high school age.</p>
+          </div>
+        </div>
+        <div class="card fade-in">
+          <div class="card-img" style="background:#ede7f6;">🏈</div>
+          <div class="card-body">
+            <h3>Flag Football</h3>
+            <p>A safe, fun introduction to football fundamentals — no contact, all competition. Perfect for ages 6–12.</p>
+          </div>
+        </div>
+        <div class="card fade-in">
+          <div class="card-img" style="background:#e0f7fa;">🏐</div>
+          <div class="card-body">
+            <h3>Volleyball</h3>
+            <p>Indoor and outdoor volleyball leagues with an emphasis on communication, agility, and team cohesion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION STRIP -->
+  <div class="mission-strip">
+    <blockquote>"Every child deserves the opportunity to compete, to belong, and to <span>believe in themselves</span> — that's what JHS Young Athletes is all about."</blockquote>
+    <a href="mission.html" class="btn">Our Mission &amp; Values</a>
+  </div>
+
+  <!-- GET INVOLVED -->
+  <section class="section section-alt">
+    <div class="container" style="display:grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items:center;">
+      <div class="fade-in">
+        <div class="section-label">Join the Team</div>
+        <h2 class="section-title">Help Shape the Next Generation</h2>
+        <p style="color:var(--color-text-light);line-height:1.7;margin-bottom:1.5rem;">Whether you're a parent, coach, or community member — there's a role for you at JHS Young Athletes. Volunteer your time, sponsor a program, or simply spread the word.</p>
+        <a href="contact.html" class="btn" style="background:var(--color-primary);">Contact Us Today</a>
+      </div>
+      <div class="fade-in" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+        <div style="background:#fff; border-radius:12px; padding:1.5rem; box-shadow:0 2px 12px rgba(26,58,107,0.08); text-align:center;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">🤝</div>
+          <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--color-primary);margin-bottom:0.4rem;">VOLUNTEER</h4>
+          <p style="font-size:0.85rem;color:var(--color-text-light);">Coach, mentor, or help run events</p>
+        </div>
+        <div style="background:#fff; border-radius:12px; padding:1.5rem; box-shadow:0 2px 12px rgba(26,58,107,0.08); text-align:center;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">💛</div>
+          <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--color-primary);margin-bottom:0.4rem;">DONATE</h4>
+          <p style="font-size:0.85rem;color:var(--color-text-light);">Fund equipment and scholarships</p>
+        </div>
+        <div style="background:#fff; border-radius:12px; padding:1.5rem; box-shadow:0 2px 12px rgba(26,58,107,0.08); text-align:center;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">🏆</div>
+          <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--color-primary);margin-bottom:0.4rem;">SPONSOR</h4>
+          <p style="font-size:0.85rem;color:var(--color-text-light);">Partner with us as a local business</p>
+        </div>
+        <div style="background:#fff; border-radius:12px; padding:1.5rem; box-shadow:0 2px 12px rgba(26,58,107,0.08); text-align:center;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">📣</div>
+          <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--color-primary);margin-bottom:0.4rem;">SPREAD THE WORD</h4>
+          <p style="font-size:0.85rem;color:var(--color-text-light);">Share our story with your community</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2>JHS Young Athletes</h2>
+        <p>Empowering the youth of Pike County, Missouri through athletics, character, and community since we first took the field.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="mission.html">Mission</a></li>
+          <li><a href="history.html">History</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">132 Community Ln</a></li>
+          <li><a href="#">Eolia, MO 63344</a></li>
+          <li><a href="mailto:info@jhsyoungathletes.us">info@jhsyoungathletes.us</a></li>
+          <li><a href="https://jhsyoungathletes.us" target="_blank">jhsyoungathletes.us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 JHS Young Athletes. All rights reserved.</span>
+      <div class="social-links">
+        <a href="#" title="Facebook">f</a>
+        <a href="#" title="Twitter">𝕏</a>
+        <a href="#" title="Instagram">📷</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
